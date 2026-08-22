@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="首都快线航空路线展示与便捷查询页面">
+  <title>首都快线 · 快速直达各大城市</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="nav-wrap">
+      <a class="brand" href="#top" aria-label="首都快线首页">
+        <span class="bcia-logo"><img src="assets/logos/北京首都国际机场.jpeg" alt="北京首都国际机场 BCIA Logo"></span>
+        <span class="brand-name">首都快线<small>CAPITAL EXPRESS</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="打开导航菜单"><span></span><span></span><span></span></button>
+      <nav class="main-nav" id="main-nav" aria-label="主导航"><a href="#routes">航线查询</a><a href="#offers">优惠信息</a><a href="#guide">出行指南</a></nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-glow glow-one"></div><div class="hero-glow glow-two"></div>
+      <div class="hero-content">
+        <p class="eyebrow">BEIJING CAPITAL INTERNATIONAL AIRPORT</p>
+        <h1 id="hero-title">首都快线 <span>·</span><br>快速直达各大城市</h1>
+        <p class="hero-copy">从北京出发，以更丰富的航班选择连接核心城市。让每一次商务与旅行，都从高效、从容开始。</p>
+        <a class="primary-button" href="#routes">探索全部航线 <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="flight-path" aria-hidden="true"><span>✈</span></div>
+      <div class="hero-stats" aria-label="首都快线概览"><div><strong>5</strong><span>合作航空公司</span></div><div><strong>11</strong><span>热门航点</span></div><div><strong>PEK</strong><span>从北京出发</span></div></div>
+    </section>
+
+    <section class="section routes-section" id="routes">
+      <div class="section-heading"><div><p class="eyebrow blue">ROUTE NETWORK</p><h2>航线查询</h2></div><p>选择目的地，快速找到对应的航空公司与首都快线航线。</p></div>
+      <div class="route-filter" role="search"><label for="route-search">搜索目的地</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="route-search" type="search" placeholder="例如：上海、成都、深圳" autocomplete="off"><button id="clear-search" type="button" hidden>清除</button></div><p class="result-status" id="result-status" aria-live="polite">正在展示全部航线</p></div>
+
+      <div class="airline-grid" id="airline-grid">
+        <article class="airline-card" data-airline="中国国际航空">
+          <div class="airline-head"><div class="airline-logo"><img src="assets/logos/中国国际航空.jpeg" alt="中国国际航空 Air China Logo"></div><div><p>Air China</p><h3>中国国际航空</h3></div><span class="count">7 条航线</span></div>
+          <div class="route-list" aria-label="中国国际航空航线"><button data-destination="上海">北京 <i>→</i> 上海</button><button data-destination="杭州">北京 <i>→</i> 杭州</button><button data-destination="成都">北京 <i>→</i> 成都</button><button data-destination="重庆">北京 <i>→</i> 重庆</button><button data-destination="广州">北京 <i>→</i> 广州</button><button data-destination="深圳">北京 <i>→</i> 深圳</button><button data-destination="乌鲁木齐">北京 <i>→</i> 乌鲁木齐</button></div>
+        </article>
+        <article class="airline-card" data-airline="深圳航空">
+          <div class="airline-head"><div class="airline-logo"><img src="assets/logos/深圳航空.jpeg" alt="深圳航空 Shenzhen Airlines Logo"></div><div><p>Shenzhen Airlines</p><h3>深圳航空</h3></div><span class="count">1 条航线</span></div>
+          <div class="route-list" aria-label="深圳航空航线"><button data-destination="深圳">北京 <i>→</i> 深圳</button></div>
+        </article>
+        <article class="airline-card" data-airline="中国东方航空">
+          <div class="airline-head"><div class="airline-logo"><img src="assets/logos/中国东方航空.jpeg" alt="中国东方航空 China Eastern Logo"></div><div><p>China Eastern</p><h3>中国东方航空</h3></div><span class="count">1 条航线</span></div>
+          <div class="route-list" aria-label="中国东方航空航线"><button data-destination="上海虹桥">北京首都 <i>→</i> 上海虹桥</button></div>
+        </article>
+        <article class="airline-card" data-airline="四川航空">
+          <div class="airline-head"><div class="airline-logo"><img src="assets/logos/四川航空.jpeg" alt="四川航空 Sichuan Airlines Logo"></div><div><p>Sichuan Airlines</p><h3>四川航空</h3></div><span class="count">1 条航线</span></div>
+          <div class="route-list" aria-label="四川航空航线"><button data-destination="成都双流">北京首都 <i>→</i> 成都双流</button></div>
+        </article>
+        <article class="airline-card wide" data-airline="海南航空">
+          <div class="airline-head"><div class="airline-logo"><img src="assets/logos/海南航空.jpeg" alt="海南航空 Hainan Airlines Logo"></div><div><p>Hainan Airlines</p><h3>海南航空</h3></div><span class="count">7 条航线</span></div>
+          <div class="route-list" aria-label="海南航空航线"><button data-destination="海口">北京 <i>→</i> 海口</button><button data-destination="三亚">北京 <i>→</i> 三亚</button><button data-destination="广州">北京 <i>→</i> 广州</button><button data-destination="深圳">北京 <i>→</i> 深圳</button><button data-destination="杭州">北京 <i>→</i> 杭州</button><button data-destination="重庆">北京 <i>→</i> 重庆</button><button data-destination="成都">北京 <i>→</i> 成都</button></div>
+        </article>
+      </div>
+      <div class="empty-state" id="empty-state" hidden><strong>未找到相关航线</strong><p>换一个城市名称试试看。</p></div>
+    </section>
+
+    <section class="offer-section" id="offers">
+      <div class="offer-inner">
+        <div class="offer-copy">
+          <div><p class="eyebrow">OFFICIAL AIRLINE OFFERS</p><h2>官网优惠与机票预订</h2></div>
+          <p>前往航空公司官网查看最新优惠。实际票价、航班及促销信息均以各航空公司官网实时发布为准。</p>
+        </div>
+        <div class="official-grid">
+          <article class="official-card">
+            <div class="official-logo"><img src="assets/logos/中国国际航空.jpeg" alt="中国国际航空 Air China Logo"></div>
+            <div class="official-info"><small>AIR CHINA</small><h3>中国国际航空</h3><p>前往航空公司官网查看最新优惠</p></div>
+            <a href="https://www.airchina.com.cn/" target="_blank" rel="noopener noreferrer" aria-label="在新标签页打开中国国际航空官网">官网优惠 / 机票预订 <span>↗</span></a>
+          </article>
+          <article class="official-card">
+            <div class="official-logo"><img src="assets/logos/深圳航空.jpeg" alt="深圳航空 Shenzhen Airlines Logo"></div>
+            <div class="official-info"><small>SHENZHEN AIRLINES</small><h3>深圳航空</h3><p>前往航空公司官网查看最新优惠</p></div>
+            <a href="https://www.shenzhenair.com/" target="_blank" rel="noopener noreferrer" aria-label="在新标签页打开深圳航空官网">官网优惠 / 机票预订 <span>↗</span></a>
+          </article>
+          <article class="official-card">
+            <div class="official-logo"><img src="assets/logos/中国东方航空.jpeg" alt="中国东方航空 China Eastern Logo"></div>
+            <div class="official-info"><small>CHINA EASTERN</small><h3>中国东方航空</h3><p>前往航空公司官网查看最新优惠</p></div>
+            <a href="https://www.ceair.com/" target="_blank" rel="noopener noreferrer" aria-label="在新标签页打开中国东方航空官网">官网优惠 / 机票预订 <span>↗</span></a>
+          </article>
+          <article class="official-card">
+            <div class="official-logo"><img src="assets/logos/四川航空.jpeg" alt="四川航空 Sichuan Airlines Logo"></div>
+            <div class="official-info"><small>SICHUAN AIRLINES</small><h3>四川航空</h3><p>前往航空公司官网查看最新优惠</p></div>
+            <a href="https://www.sichuanair.com/" target="_blank" rel="noopener noreferrer" aria-label="在新标签页打开四川航空官网">官网优惠 / 机票预订 <span>↗</span></a>
+          </article>
+          <article class="official-card">
+            <div class="official-logo"><img src="assets/logos/海南航空.jpeg" alt="海南航空 Hainan Airlines Logo"></div>
+            <div class="official-info"><small>HAINAN AIRLINES</small><h3>海南航空</h3><p>前往航空公司官网查看最新优惠</p></div>
+            <a href="https://www.hnair.com/" target="_blank" rel="noopener noreferrer" aria-label="在新标签页打开海南航空官网">官网优惠 / 机票预订 <span>↗</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tips-section" id="guide">
+      <div class="section-heading"><div><p class="eyebrow blue">TRAVEL TIPS</p><h2>出行小贴士</h2></div><p>提前做好准备，让旅程更轻松。</p></div>
+      <div class="tips-grid"><article><span class="tip-icon">⌚</span><p>提前抵达</p><h3>预留充足时间</h3><p>建议国内航班起飞前至少 2 小时抵达机场，节假日请适当提前。</p></article><article><span class="tip-icon">✓</span><p>证件确认</p><h3>随身携带有效证件</h3><p>出发前检查身份证件与订票信息，确保姓名和证件号码一致。</p></article><article><span class="tip-icon">▣</span><p>行李准备</p><h3>了解行李规定</h3><p>不同航司与舱位标准可能不同，请在出发前向承运航空公司确认。</p></article></div>
+    </section>
+  </main>
+
+  <footer><div class="footer-main"><div><strong>首都快线</strong><p>连接北京与各大城市，让高效出行触手可及。</p></div><div><span>快速导航</span><a href="#routes">航线查询</a><a href="#offers">优惠信息</a><a href="#guide">出行指南</a></div><div><span>温馨提示</span><p>实际航班、票价及服务请以航空公司官方发布为准。</p></div></div><div class="footer-bottom"><p>© <span id="current-year"></span> 首都快线路线展示</p><p>页面 Logo 使用本地提供的品牌图片素材</p></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
