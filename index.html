@@ -10,12 +10,11 @@
 <body>
   <header class="site-header" id="top">
     <div class="nav-wrap">
-      <a class="brand" href="#top" aria-label="首都快线首页">
-        <span class="bcia-logo"><img src="assets/logos/北京首都国际机场.jpeg" alt="北京首都国际机场 BCIA Logo"></span>
-        <span class="brand-name">首都快线<small>CAPITAL EXPRESS</small></span>
+      <a class="brand" href="#top" aria-label="首都机场出发的空中快线与精品航线首页">
+        <span class="brand-name">首都机场出发的<small>空中快线 · 精品航线</small></span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="打开导航菜单"><span></span><span></span><span></span></button>
-      <nav class="main-nav" id="main-nav" aria-label="主导航"><a href="#routes">航线查询</a><a href="#offers">优惠信息</a><a href="#guide">出行指南</a></nav>
+      <nav class="main-nav" id="main-nav" aria-label="主导航"><a href="#routes">航线查询</a><a href="#destinations">目的地介绍</a><a href="#offers">优惠信息</a><a href="#guide">注意事项</a></nav>
     </div>
   </header>
 
@@ -23,9 +22,8 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-glow glow-one"></div><div class="hero-glow glow-two"></div>
       <div class="hero-content">
-        <p class="eyebrow">BEIJING CAPITAL INTERNATIONAL AIRPORT</p>
-        <h1 id="hero-title">首都快线 <span>·</span><br>快速直达各大城市</h1>
-        <p class="hero-copy">从北京出发，以更丰富的航班选择连接核心城市。让每一次商务与旅行，都从高效、从容开始。</p>
+        <h1 id="hero-title">首都机场出发的<br>“空中快线”“精品航线”</h1>
+        <p class="hero-copy">首都机场出发的空中快线、精品航线，是各航空公司持续提升航班品质与旅客服务体验的重点航线。从京津冀出发，连接长三角、粤港澳大湾区、成渝地区、中部地区、海南自由贸易港及西北“一带一路”门户城市，以更加丰富的航班选择和更加完善的服务体验，连接重要城市群与区域经济中心。</p>
         <a class="primary-button" href="#routes">探索全部航线 <span aria-hidden="true">↓</span></a>
       </div>
       <div class="flight-path" aria-hidden="true"><span>✈</span></div>
@@ -115,13 +113,49 @@
       </div>
     </section>
 
+    <section class="section destinations-section" id="destinations" aria-labelledby="destinations-title">
+      <div class="section-heading"><div><p class="eyebrow blue">DESTINATIONS</p><h2 id="destinations-title">目的地介绍</h2></div><p>从航线抵达城市，也从城市的地理、历史与日常开始认识下一段旅程。</p></div>
+      <div class="destination-grid" id="destination-grid" aria-label="目的地列表"></div>
+    </section>
+
+    <section class="destination-detail" id="destination-detail" aria-live="polite" hidden></section>
+
     <section class="section tips-section" id="guide">
-      <div class="section-heading"><div><p class="eyebrow blue">TRAVEL TIPS</p><h2>出行小贴士</h2></div><p>提前做好准备，让旅程更轻松。</p></div>
+      <div class="section-heading"><div><p class="eyebrow blue">TRAVEL NOTES</p><h2>注意事项</h2></div><p>提前做好准备，让旅程更轻松。</p></div>
       <div class="tips-grid"><article><span class="tip-icon">⌚</span><p>提前抵达</p><h3>预留充足时间</h3><p>建议国内航班起飞前至少 2 小时抵达机场，节假日请适当提前。</p></article><article><span class="tip-icon">✓</span><p>证件确认</p><h3>随身携带有效证件</h3><p>出发前检查身份证件与订票信息，确保姓名和证件号码一致。</p></article><article><span class="tip-icon">▣</span><p>行李准备</p><h3>了解行李规定</h3><p>不同航司与舱位标准可能不同，请在出发前向承运航空公司确认。</p></article></div>
     </section>
   </main>
 
-  <footer><div class="footer-main"><div><strong>首都快线</strong><p>连接北京与各大城市，让高效出行触手可及。</p></div><div><span>快速导航</span><a href="#routes">航线查询</a><a href="#offers">优惠信息</a><a href="#guide">出行指南</a></div><div><span>温馨提示</span><p>实际航班、票价及服务请以航空公司官方发布为准。</p></div></div><div class="footer-bottom"><p>© <span id="current-year"></span> 首都快线路线展示</p><p>页面 Logo 使用本地提供的品牌图片素材</p></div></footer>
+  <footer><div class="footer-main"><div><strong>首都快线</strong><p>连接北京与各大城市，让高效出行触手可及。</p></div><div><span>快速导航</span><a href="#routes">航线查询</a><a href="#destinations">目的地介绍</a><a href="#offers">优惠信息</a><a href="#guide">注意事项</a></div><div><span>网站信息 / SITE INFO</span><p>本站展示首都机场出发的相关航线信息。</p><p>实际航班、票价及服务请以航空公司官方发布为准。</p></div></div><section class="footer-sitemap" aria-labelledby="sitemap-title"><h2 id="sitemap-title">网站地图</h2><h3>机场官方网站</h3><ul><li><a href="https://www.bcia.com.cn" target="_blank" rel="noopener">北京首都国际机场</a></li><li><a href="https://www.bdia.com.cn" target="_blank" rel="noopener">北京大兴国际机场</a></li><li><a href="https://www.shairport.com" target="_blank" rel="noopener">上海浦东国际机场</a></li><li><a href="https://www.shairport.com" target="_blank" rel="noopener">上海虹桥国际机场</a></li><li><a href="https://www.hzairport.com" target="_blank" rel="noopener">杭州萧山国际机场</a></li><li><a href="https://www.cdairport.com" target="_blank" rel="noopener">成都双流国际机场</a></li><li><a href="https://www.sctfia.com" target="_blank" rel="noopener">成都天府国际机场</a></li><li><a href="https://www.cqa.cn" target="_blank" rel="noopener">重庆江北国际机场</a></li><li><a href="https://www.xxia.com.cn" target="_blank" rel="noopener">西安咸阳国际机场</a></li><li><a href="https://www.iport.com.cn" target="_blank" rel="noopener">厦门高崎国际机场</a></li><li><a href="https://www.baiyunairport.com" target="_blank" rel="noopener">广州白云国际机场</a></li><li><a href="https://www.szairport.com" target="_blank" rel="noopener">深圳宝安国际机场</a></li><li><a href="https://urc.xjairport.com" target="_blank" rel="noopener">乌鲁木齐天山国际机场</a></li><li><a href="https://www.whairport.com" target="_blank" rel="noopener">武汉天河国际机场</a></li><li><a href="http://csa.hnjcjt.com" target="_blank" rel="noopener">长沙黄花国际机场</a></li><li><a href="https://www.mlairport.com" target="_blank" rel="noopener">海口美兰国际机场</a></li><li><a href="https://www.sanyaairport.com" target="_blank" rel="noopener">三亚凤凰国际机场</a></li></ul></section><div class="footer-bottom"><p>© <span id="current-year"></span> 首都快线路线展示</p><p>页面中的航空公司 Logo 使用本地提供的品牌图片素材</p></div></footer>
   <script src="script.js"></script>
+  <script>
+    (() => {
+      const destinationPages = {
+        北京: 'destinations/北京.html',
+        上海: 'destinations/上海.html',
+        杭州: 'destinations/杭州.html',
+        广州: 'destinations/广州.html',
+        深圳: 'destinations/深圳.html',
+        成都: 'destinations/成都.html',
+        重庆: 'destinations/重庆.html',
+        西安: 'destinations/西安.html',
+        乌鲁木齐: 'destinations/乌鲁木齐.html',
+        厦门: 'destinations/厦门.html',
+        长沙: 'destinations/长沙.html',
+        武汉: 'destinations/武汉.html',
+        海口: 'destinations/海口.html',
+        三亚: 'destinations/三亚.html'
+      };
+
+      document.querySelector('#destination-grid').addEventListener('click', event => {
+        const card = event.target.closest('[data-city]');
+        const page = card && destinationPages[card.dataset.city];
+        if (!page) return;
+        event.preventDefault();
+        event.stopPropagation();
+        window.location.assign(page);
+      }, true);
+    })();
+  </script>
 </body>
 </html>

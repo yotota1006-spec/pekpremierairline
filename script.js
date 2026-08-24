@@ -1,49 +1,25 @@
-const menuButton = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.main-nav');
-const searchInput = document.querySelector('#route-search');
-const clearButton = document.querySelector('#clear-search');
-const status = document.querySelector('#result-status');
-const emptyState = document.querySelector('#empty-state');
-const cards = [...document.querySelectorAll('.airline-card')];
-
-menuButton.addEventListener('click', () => {
-  const isOpen = nav.classList.toggle('open');
-  menuButton.setAttribute('aria-expanded', String(isOpen));
-  menuButton.setAttribute('aria-label', isOpen ? '关闭导航菜单' : '打开导航菜单');
-});
-nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
-  nav.classList.remove('open');
-  menuButton.setAttribute('aria-expanded', 'false');
-}));
-
-function filterRoutes() {
-  const query = searchInput.value.trim().toLowerCase();
-  let visibleRoutes = 0;
-  cards.forEach((card) => {
-    let routesInCard = 0;
-    card.querySelectorAll('.route-list button').forEach((route) => {
-      const matches = !query || route.textContent.toLowerCase().includes(query) || card.dataset.airline.toLowerCase().includes(query);
-      route.hidden = !matches;
-      if (matches) routesInCard += 1;
-    });
-    card.hidden = routesInCard === 0;
-    visibleRoutes += routesInCard;
-  });
-  clearButton.hidden = !query;
-  emptyState.hidden = visibleRoutes !== 0;
-  status.textContent = query ? `找到 ${visibleRoutes} 条相关航线` : '正在展示全部航线';
-}
-searchInput.addEventListener('input', filterRoutes);
-clearButton.addEventListener('click', () => { searchInput.value = ''; filterRoutes(); searchInput.focus(); });
-document.querySelectorAll('.route-list button').forEach((button) => button.addEventListener('click', () => {
-  document.querySelectorAll('.route-list button.selected').forEach((item) => item.classList.remove('selected'));
-  button.classList.add('selected');
-  status.textContent = `已选择：${button.closest('.airline-card').dataset.airline} · ${button.textContent.trim()}`;
-}));
-const sections = [...document.querySelectorAll('main section[id]')];
-const navLinks = [...nav.querySelectorAll('a')];
-const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
-  if (entry.isIntersecting) navLinks.forEach((link) => link.classList.toggle('active', link.hash === `#${entry.target.id}`));
-}), { rootMargin: '-35% 0px -55% 0px' });
-sections.forEach((section) => observer.observe(section));
-document.querySelector('#current-year').textContent = new Date().getFullYear();
+const menuButton=document.querySelector('.menu-toggle'),nav=document.querySelector('.main-nav'),searchInput=document.querySelector('#route-search'),clearButton=document.querySelector('#clear-search'),status=document.querySelector('#result-status'),emptyState=document.querySelector('#empty-state'),cards=[...document.querySelectorAll('.airline-card')];
+const cityData={
+'北京':['BEIJING','中国首都与古都在中轴线两侧展开，历史的秩序与当代城市的节奏在这里并行。','华北平原西北缘，西倚太行、北接燕山，是全国重要的交通与文化中心。','已有三千余年建城史、八百余年建都史。元大都、明清北京的营建，奠定了今日城市格局。','温带季风气候','中轴线、胡同与四合院保留着城市肌理；京剧与博物馆、展览和表演空间共同构成传统与现代交汇的文化日常。','城区跨度较大，建议按区域安排出行；乘坐公共交通时留意高峰时段与安检时间。'],
+'上海':['SHANGHAI','长江入海口的潮汐穿过黄浦江。国际都市的尺度，与海派文化的细部在此相遇。','位于长江三角洲东缘，濒临东海，黄浦江将浦东与浦西连成一座面向海洋的城市。','近代开埠后，港口、工商业与航运快速发展，上海逐渐成为重要的经济与航运枢纽。','亚热带季风气候','石库门、里弄与外滩承载城市记忆，现代艺术、设计和建筑则持续拓展海派文化的边界。','轨道交通覆盖广泛；夏季出行可关注高温和短时强降雨提示。'],
+'杭州':['HANGZHOU','西湖的水面、钱塘江的潮汐与大运河的航线，共同勾勒出江南城市的从容。','位于浙江北部、钱塘江下游，西湖与京杭大运河杭州段塑造了独特的山水与城市关系。','隋唐以后，大运河带动城市发展；南宋建都临安，使杭州成为当时重要的文化与商业中心。','亚热带季风气候','西湖文化、运河文化与茶文化彼此交织，也与数字经济推动下的现代城市生活相互映照。','景区与市区交通繁忙时宜预留时间；梅雨季可备好雨具。'],
+'广州':['GUANGZHOU','珠江穿城而过。作为华南门户，广州的城市性格始终与海上贸易和开放往来相连。','地处珠江三角洲北缘，濒临南海，是连接华南腹地与海洋的重要门户。','建城已有两千多年，长期作为对外贸易重镇，在海上丝绸之路中留下深厚的港口印记。','亚热带季风气候','粤语、粤剧、骑楼和商贸传统共同构成岭南文化鲜明而务实的底色。','夏季闷热多雨；城市公共交通便利，换乘时请关注站内指引。'],
+'深圳':['SHENZHEN','珠江口东岸，一座在粤港澳大湾区中快速生长的现代创新城市。','位于广东南部，毗邻香港，面向珠江口，是大湾区的重要节点城市。','改革开放后，深圳于1980年设立经济特区，城市建设与产业发展由此进入新阶段。','亚热带海洋性季风气候','移民城市的多元背景，科技、设计与年轻开放的生活方式，构成了其鲜明的当代文化。','跨区通勤距离较长，建议提前规划；夏秋请关注台风和暴雨预警。'],
+'武汉':['WUHAN','长江与汉江在此交汇，“九省通衢”的水陆脉络，至今仍定义着武汉的节奏。','位于江汉平原东部，由武昌、汉口、汉阳三镇构成，是中部地区重要交通枢纽。','三镇沿江发展，汉口开埠后商贸兴盛；近现代交通、工业与教育不断塑造城市面貌。','亚热带湿润季风气候','长江文化与码头文化深植城市，近现代工业和高等教育传统亦赋予其开阔气质。','江河两岸跨区出行请预留时间；盛夏和冬季注意气温变化。'],
+'长沙':['CHANGSHA','湘江流过城西，岳麓山静立其旁，湖湘文化在古老书院与年轻生活之间延续。','地处湘江下游、湖南东部，是长株潭都市圈的重要城市。','楚汉时期已为重要城邑；马王堆汉墓与岳麓书院，为城市留下可感知的历史层次。','亚热带湿润季风气候','湖湘文化强调经世致用；现代传媒、艺术空间与年轻人的日常为其增添新的表达。','雨季路面湿滑，夏季炎热；景点之间可优先使用地铁与步行衔接。'],
+'重庆':['CHONGQING','长江与嘉陵江相拥而行。山城的起伏、桥梁与梯坎，构成一座立体展开的西南门户。','位于中国西南部，两江交汇，山地地貌让城市空间沿江岸和坡地层层铺开。','古为巴国区域，长江水运带来长期繁荣；近代开埠及抗战时期的历史进一步塑造城市。','亚热带湿润气候','码头文化、桥梁与梯坎共同形成山城记忆，立体交通也成为日常生活的一部分。','高差较大，步行请穿舒适鞋；雨雾天气出行宜预留更多时间。'],
+'成都':['CHENGDU','成都平原舒展如席，“天府之国”的安定气息与古蜀文明的悠远在此共存。','位于四川盆地西部、成都平原腹地，是西南地区重要中心城市。','古蜀文明源远流长，都江堰的水利智慧支撑了平原发展，城市延续至今未曾中断。','亚热带湿润气候','川剧、茶馆与从容的市井生活保留传统脉络，现代艺术与创意产业也持续生长。','天气多阴湿，可随身备伞；市内景点分布较散，建议按片区安排行程。'],
+'西安':['XI’AN','关中平原上的古都，曾是丝绸之路的起点之一，城墙内外沉淀着漫长的中国历史。','位于关中平原中部，南依秦岭、北临渭河，是西北地区的重要交通与文化中心。','周、秦、汉、唐在此及周边地区留下深刻印记，古代长安曾是世界性都城。','温带大陆性季风气候','城墙、大雁塔、遗址和博物馆串联起古都脉络，盛唐文化的余韵仍可在城市空间中感受。','历史景区步行量较大；春季请关注风沙与昼夜温差。'],
+'乌鲁木齐':['URUMQI','天山脚下，丝路之门。城市在辽阔的亚欧大陆腹地，连接着远近不同的方向。','位于天山北麓、亚欧大陆腹地，是新疆重要交通门户，也是丝绸之路经济带的重要节点之一。','这里长期是连接天山南北、沟通东西的交通通道，随商旅、驿路与现代交通网络而发展。','温带大陆性干旱气候','丝绸之路的交流传统延续至今，多民族、多语言与多种生活方式共同构成城市文化。','请留意较大的昼夜温差与紫外线；跨区域出行前建议核对天气和交通信息。'],
+'厦门':['XIAMEN','岛屿与海湾相望，东南沿海的海风穿行于街巷之间，形成一座有海洋尺度的城市。','位于福建东南沿海，由厦门岛及周边陆地、岛屿组成，面向台湾海峡。','海上贸易带来早期发展，近代开埠后对外联系加强，侨乡网络也深刻影响城市。','亚热带海洋性季风气候','闽南文化、南音与侨乡文化延续于日常，鼓浪屿的近现代建筑遗产则记录了海洋交流。','海岛与本岛交通需留意船班及天气；夏秋请关注台风信息。'],
+'海口':['HAIKOU','海南岛北部临望琼州海峡，海口以港口与街巷相连，是进入海南的一扇门户。','位于海南岛北部，隔琼州海峡与雷州半岛相望，是全岛重要的交通与行政中心。','港口、商贸和海上交流推动城市成长，也让它长期承担海南对外联系的功能。','热带季风气候','琼北文化、南洋侨乡文化与骑楼老街的建筑风貌，共同保留了海口的生活质感。','高温与阵雨常见，请备雨具和防晒；海峡交通受天气影响时应关注通知。'],
+'三亚':['SANYA','海南岛南部临南海，热带滨海环境让海岸、山林与城市生活保持着自然的距离。','位于海南岛最南端，濒临南海，拥有海湾、岛屿与热带山地相连的地理环境。','古代称崖州，历史上是海南南部的重要区域；近现代以来逐步发展为滨海城市。','热带海洋性季风气候','海南本土文化、黎族苗族传统、渔业生活与南海文化，共同塑造城市的多样面貌。','日照较强，请做好防晒与补水；海边活动应关注天气、潮汐和安全提示。']};
+const img=c=>`assets/destinations/${encodeURIComponent(c)}.JPG`,grid=document.querySelector('#destination-grid'),detail=document.querySelector('#destination-detail'),main=document.querySelector('main');
+grid.innerHTML=Object.entries(cityData).map(([c,d])=>`<button class="destination-card" type="button" data-city="${c}"><img src="${img(c)}" alt="${c}城市风景"><span><strong>${c}</strong><small>${d[0]}</small></span></button>`).join('');
+const inf=(t,e,n,x)=>`<article class="destination-info-card"><span class="info-num">${n}</span><small>${e}</small><h2>${t}</h2><p>${x}</p></article>`;
+function render(c){const d=cityData[c];if(!d)return false;detail.innerHTML=`<div class="destination-detail-inner"><button class="destination-back" type="button"><span>←</span>返回目的地列表</button><article class="destination-hero"><img src="${img(c)}" alt="${c}城市风景"><div class="destination-title"><p>DESTINATION GUIDE</p><h1>${c}</h1><small>${d[0]}</small></div></article><div class="destination-intro"><p>${d[1]}</p><aside>从地理与历史理解一座城市，再以合适的节奏开始行程。以下信息仅作出行前的基础参考。</aside></div><div class="destination-info-grid">${inf('地理位置','LOCATION','01',d[2])}${inf('简要历史','HISTORY','02',d[3])}${inf('气候','CLIMATE','03',d[4])}${inf('城市文化','CULTURE','04',d[5])}${inf('实用指南','TRAVEL GUIDE','05',d[6])}</div><section class="official-information"><p class="eyebrow">OFFICIAL INFORMATION</p><h2>官方信息</h2><div class="official-placeholders"><div class="official-placeholder"><strong>当地人民政府官方网站</strong><small>TODO：待补充已确认的官方链接</small></div><div class="official-placeholder"><strong>当地文化和旅游主管部门官方网站</strong><small>TODO：待补充已确认的官方链接</small></div></div></section></div>`;[...main.children].filter(x=>x!==detail).forEach(x=>x.hidden=true);detail.hidden=false;window.scrollTo({top:0,behavior:'auto'});return true}
+function sync(){const c=decodeURIComponent(location.hash.replace('#destination-',''));if(location.hash.startsWith('#destination-')&&render(c))return;[...main.children].filter(x=>x!==detail).forEach(x=>x.hidden=false);detail.hidden=true}
+grid.addEventListener('click',e=>{const b=e.target.closest('[data-city]');if(b)location.hash=`destination-${encodeURIComponent(b.dataset.city)}`});detail.addEventListener('click',e=>{if(e.target.closest('.destination-back')){history.replaceState(null,'',`${location.pathname}${location.search}#destinations`);sync();document.querySelector('#destinations').scrollIntoView({behavior:'smooth'})}});window.addEventListener('hashchange',sync);
+menuButton.addEventListener('click',()=>{const o=nav.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(o));menuButton.setAttribute('aria-label',o?'关闭导航菜单':'打开导航菜单')});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menuButton.setAttribute('aria-expanded','false')}));
+function filterRoutes(){const q=searchInput.value.trim().toLowerCase();let n=0;cards.forEach(c=>{let m=0;c.querySelectorAll('.route-list button').forEach(r=>{const ok=!q||r.textContent.toLowerCase().includes(q)||c.dataset.airline.toLowerCase().includes(q);r.hidden=!ok;if(ok)m++});c.hidden=m===0;n+=m});clearButton.hidden=!q;emptyState.hidden=n!==0;status.textContent=q?`找到 ${n} 条相关航线`:'正在展示全部航线'}searchInput.addEventListener('input',filterRoutes);clearButton.addEventListener('click',()=>{searchInput.value='';filterRoutes();searchInput.focus()});document.querySelectorAll('.route-list button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.route-list button.selected').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');status.textContent=`已选择：${b.closest('.airline-card').dataset.airline} · ${b.textContent.trim()}`}));
+const sections=[...document.querySelectorAll('main section[id]')],navLinks=[...nav.querySelectorAll('a')],observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.classList.toggle('active',a.hash===`#${e.target.id}`))}),{rootMargin:'-35% 0px -55% 0px'});sections.forEach(s=>observer.observe(s));document.querySelector('#current-year').textContent=new Date().getFullYear();sync();
